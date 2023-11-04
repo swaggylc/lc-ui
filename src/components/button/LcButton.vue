@@ -1,6 +1,7 @@
 <template>
     <!-- 注意：双引号内使用单引号！ -->
-    <button class="lc-button" :class="[`lc-button-${type}`, { 'is-plain': plain }]">
+    <button class="lc-button"
+        :class="[`lc-button-${type}`, { 'is-plain': plain }, { 'is-round': round }, { 'is-circle': circle }]">
         <!-- 在span中放入插槽，以控制插槽样式 -->
         <span>
             <slot></slot>
@@ -21,7 +22,16 @@ const props = defineProps({
     plain: {
         type: Boolean,
         default: false
+    },
+    round: {
+        type: Boolean,
+        default: false
+    },
+    circle: {
+        type: Boolean,
+        default: false
     }
+
 });
 </script>
 
@@ -193,5 +203,17 @@ const props = defineProps({
         border-color: #f56c6c;
         color: #fff;
     }
+}
+
+// 圆角属性
+.lc-button.is-round {
+    border-radius: 20px;
+    padding: 12px 23px;
+}
+
+// 圆形属性
+.lc-button.is-circle {
+    border-radius: 50%;
+    padding: 12px;
 }
 </style>
