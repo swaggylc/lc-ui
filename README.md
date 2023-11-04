@@ -111,3 +111,13 @@ const props = defineProps({
 		注意：双引号内使用单引号
 ```
 
+#### around属性
+
+同上
+
+#### circle属性
+
+同上
+
+#### icon属性
+
