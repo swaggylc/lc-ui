@@ -1,5 +1,6 @@
 <template>
-    <button class="lc-button" :class="[`lc-button-${type}`]">
+    <!-- 注意：双引号内使用单引号！ -->
+    <button class="lc-button" :class="[`lc-button-${type}`, { 'is-plain': plain }]">
         <!-- 在span中放入插槽，以控制插槽样式 -->
         <span>
             <slot></slot>
@@ -17,6 +18,10 @@ const props = defineProps({
         type: String,	//字符串类型，否则报错
         default: "primary",
     },
+    plain: {
+        type: Boolean,
+        default: false
+    }
 });
 </script>
 
@@ -53,6 +58,7 @@ const props = defineProps({
     }
 }
 
+// 主按钮样式
 .lc-button-primary {
     color: #fff;
     background-color: #409eff;
@@ -114,6 +120,77 @@ const props = defineProps({
     &:focus {
         background: #f78989;
         background-color: #f78989;
+        color: #fff;
+    }
+}
+
+// 朴素按钮样式
+.lc-button.is-plain {
+
+    &:hover,
+    &:focus {
+        background: #fff;
+        border-color: #489eff;
+        color: #409eff;
+    }
+}
+
+.lc-button-primary.is-plain {
+    color: #409eff;
+    background: #ecf5ff;
+
+    &:hover,
+    &:focus {
+        background: #409eff;
+        border-color: #409eff;
+        color: #fff;
+    }
+}
+
+.lc-button-success.is-plain {
+    color: #67c23a;
+    background: #c2e7b0;
+
+    &:hover,
+    &:focus {
+        background: #67c23a;
+        border-color: #67c23a;
+        color: #fff;
+    }
+}
+
+.lc-button-info.is-plain {
+    color: #909399;
+    background: #d3d4d6;
+
+    &:hover,
+    &:focus {
+        background: #909399;
+        border-color: #909399;
+        color: #fff;
+    }
+}
+
+.lc-button-warning.is-plain {
+    color: #e6a23c;
+    background: #f5dab1;
+
+    &:hover,
+    &:focus {
+        background: #e6a23c;
+        border-color: #e6a23c;
+        color: #fff;
+    }
+}
+
+.lc-button-danger.is-plain {
+    color: #f56c6c;
+    background: #fbc4c4;
+
+    &:hover,
+    &:focus {
+        background: #f56c6c;
+        border-color: #f56c6c;
         color: #fff;
     }
 }

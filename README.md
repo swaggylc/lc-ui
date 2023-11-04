@@ -73,3 +73,41 @@ const props = defineProps({
     <button class="lc-button" :class="[`lc-button-${type}`]">
 ```
 
+#### plain属性
+
+父组件传递plain属性
+
+```html
+  <div class="row">
+    <lc-button plain>一号按钮</lc-button>
+    <lc-button plain type="primary">primary</lc-button>
+    <lc-button plain type="success">success</lc-button>
+    <lc-button plain type="info">info</lc-button>
+    <lc-button plain type="warning">warning</lc-button>
+    <lc-button plain type="danger">danger</lc-button>
+  </div>
+```
+
+子组件接收plain属性
+
+```js
+// 封装通用的组件，通常需要对props进行约束
+const props = defineProps({
+    type: {
+        type: String,	//字符串类型，否则报错
+        default: "primary",
+    },
+    plain: {
+        type: Boolean,
+        default: false
+    }
+});
+```
+
+在子组件的类名处动态绑定
+
+```html
+    <button class="lc-button" :class="[`lc-button-${type}`, { 'is-plain': plain }]">
+		注意：双引号内使用单引号
+```
+
