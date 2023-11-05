@@ -164,3 +164,45 @@ import './assets/font/font.css'
 ```
 
 注意：i标签的隐藏与否由其是否传入icon属性决定，span标签的显示与否由插槽内是否有内容决定
+
+#### click点击事件
+
+本质是子组件触发父组件的自定义事件
+
+父组件中：
+
+```vue
+    <lc-button @btnClick="fn" icon="icon-delete" circle></lc-button>
+        const fn = () => {
+          console.log('123');
+        }
+
+```
+
+子组件中：
+
+```vue
+    <button @click="handleClick" class="lc-button" :class="[
+        `lc-button-${type}`,
+        { 'is-plain': plain },
+        { 'is-round': round },
+        { 'is-circle': circle },
+    ]">
+        <!-- 在span中放入插槽，以控制插槽样式 -->
+        <i v-if="icon" class="iconfont" :class="icon"></i>
+        <span v-if="$slot.default">
+            <slot></slot>
+        </span>
+    </button>
+        const $emits = defineEmits(['btnClick']);
+
+        const handleClick = (e) => {
+            $emits("btnClick", e);
+        };
+```
+
+注意：自定义事件最好不要与vue自带的事件重名，否则可能产生不能预估的影响
+
+#### disabled属性
+
+同上

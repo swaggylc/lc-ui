@@ -1,7 +1,12 @@
 <template>
     <!-- 注意：双引号内使用单引号！ -->
-    <button class="lc-button"
-        :class="[`lc-button-${type}`, { 'is-plain': plain }, { 'is-round': round }, { 'is-circle': circle }]">
+    <button @click="handleClick" class="lc-button" :class="[
+        `lc-button-${type}`,
+        { 'is-plain': plain },
+        { 'is-round': round },
+        { 'is-circle': circle },
+        { 'is-disabled': disabled }
+    ]">
         <!-- 在span中放入插槽，以控制插槽样式 -->
         <i v-if="icon" class="iconfont" :class="icon"></i>
         <span v-if="$slot.default">
@@ -12,36 +17,42 @@
 
 <script setup>
 name: "Lc-Button";
-import { defineProps, useSlots } from "vue";
+import { defineProps, useSlots, defineEmits } from "vue";
 
 // 封装通用的组件，通常需要对props进行约束
 const props = defineProps({
     type: {
-        type: String,	//字符串类型，否则报错
+        type: String, //字符串类型，否则报错
         default: "primary",
     },
     plain: {
         type: Boolean,
-        default: false
+        default: false,
     },
     round: {
         type: Boolean,
-        default: false
+        default: false,
     },
     circle: {
         type: Boolean,
-        default: false
+        default: false,
     },
     icon: {
         type: String,
-        default: ''
+        default: "",
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     }
-
 });
 
-const $slot = useSlots()
-console.log($slot);
+const $slot = useSlots();
+const $emits = defineEmits(['btnClick']);
 
+const handleClick = (e) => {
+    $emits("btnClick", e);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -227,7 +238,12 @@ console.log($slot);
 }
 
 // 让图标与span有一定间距
-.lc-button [class*=icon-]+span {
+.lc-button [class*="icon-"]+span {
     margin-left: 5px;
+}
+
+// 禁用按钮的样式
+.lc-button.is-disabled {
+    cursor: no-drop;
 }
 </style>

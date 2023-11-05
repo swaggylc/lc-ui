@@ -40,18 +40,29 @@
     <lc-button icon="icon-delete" type="danger">danger</lc-button>
   </div>
   <div class="row">
-    <lc-button icon="icon-delete" circle></lc-button>
+    <lc-button @btnClick="fn" icon="icon-delete" circle></lc-button>
     <lc-button icon="icon-delete" circle type="primary"></lc-button>
     <lc-button icon="icon-delete" circle type="success"></lc-button>
     <lc-button icon="icon-delete" circle type="info"></lc-button>
     <lc-button icon="icon-delete" circle type="warning"></lc-button>
     <lc-button icon="icon-delete" circle type="danger"></lc-button>
   </div>
+  <div class="row">
+    <lc-button disabled icon="icon-delete" circle></lc-button>
+    <lc-button disabled icon="icon-delete" circle type="primary"></lc-button>
+    <lc-button disabled icon="icon-delete" circle type="success"></lc-button>
+    <lc-button disabled icon="icon-delete" circle type="info"></lc-button>
+    <lc-button disabled icon="icon-delete" circle type="warning"></lc-button>
+    <lc-button disabled icon="icon-delete" circle type="danger"></lc-button>
+  </div>
 </template>
 
 <script setup>
 import LcButton from './components/button/LcButton.vue';
 
+const fn = () => {
+  console.log('123');
+}
 
 </script>
 
