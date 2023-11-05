@@ -121,3 +121,46 @@ const props = defineProps({
 
 #### icon属性
 
+在阿里巴巴图标库中引入.css文件，在项目中main.js引入即可全局使用
+
+![image-20231105123305238](C:\Users\juhe\AppData\Roaming\Typora\typora-user-images\image-20231105123305238.png)
+
+```js
+// 全局引入图标文件
+import './assets/font/font.css'
+```
+
+父组件中传入icon类名
+
+```html
+  <div class="row">
+    <lc-button icon="icon-delete" circle></lc-button>
+    <lc-button icon="icon-delete" circle type="primary"></lc-button>
+    <lc-button icon="icon-delete" circle type="success"></lc-button>
+    <lc-button icon="icon-delete" circle type="info"></lc-button>
+    <lc-button icon="icon-delete" circle type="warning"></lc-button>
+    <lc-button icon="icon-delete" circle type="danger"></lc-button>
+  </div>
+```
+
+在子组件中接收
+
+```html
+    <button class="lc-button"
+        :class="[`lc-button-${type}`, { 'is-plain': plain }, { 'is-round': round }, { 'is-circle': circle }]">
+        <!-- 在span中放入插槽，以控制插槽样式 -->
+        <i v-if="icon" class="iconfont" :class="icon"></i>
+        <span v-if="$slot.default">
+            <slot></slot>
+        </span>
+    </button>
+```
+
+```js
+    icon: {
+        type: String,
+        default: ''
+    }
+```
+
+注意：i标签的隐藏与否由其是否传入icon属性决定，span标签的显示与否由插槽内是否有内容决定

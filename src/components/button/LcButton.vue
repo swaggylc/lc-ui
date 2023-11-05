@@ -3,7 +3,8 @@
     <button class="lc-button"
         :class="[`lc-button-${type}`, { 'is-plain': plain }, { 'is-round': round }, { 'is-circle': circle }]">
         <!-- 在span中放入插槽，以控制插槽样式 -->
-        <span>
+        <i v-if="icon" class="iconfont" :class="icon"></i>
+        <span v-if="$slot.default">
             <slot></slot>
         </span>
     </button>
@@ -11,7 +12,7 @@
 
 <script setup>
 name: "Lc-Button";
-import { defineProps } from "vue";
+import { defineProps, useSlots } from "vue";
 
 // 封装通用的组件，通常需要对props进行约束
 const props = defineProps({
@@ -30,9 +31,17 @@ const props = defineProps({
     circle: {
         type: Boolean,
         default: false
+    },
+    icon: {
+        type: String,
+        default: ''
     }
 
 });
+
+const $slot = useSlots()
+console.log($slot);
+
 </script>
 
 <style lang="scss" scoped>
@@ -215,5 +224,10 @@ const props = defineProps({
 .lc-button.is-circle {
     border-radius: 50%;
     padding: 12px;
+}
+
+// 让图标与span有一定间距
+.lc-button [class*=icon-]+span {
+    margin-left: 5px;
 }
 </style>

@@ -31,6 +31,22 @@
     <lc-button circle type="warning">圆</lc-button>
     <lc-button circle type="danger">圆</lc-button>
   </div>
+  <div class="row">
+    <lc-button icon="icon-delete">一号按钮</lc-button>
+    <lc-button icon="icon-delete" type="primary">primary</lc-button>
+    <lc-button icon="icon-delete" type="success">success</lc-button>
+    <lc-button icon="icon-delete" type="info">info</lc-button>
+    <lc-button icon="icon-delete" type="warning">warning</lc-button>
+    <lc-button icon="icon-delete" type="danger">danger</lc-button>
+  </div>
+  <div class="row">
+    <lc-button icon="icon-delete" circle></lc-button>
+    <lc-button icon="icon-delete" circle type="primary"></lc-button>
+    <lc-button icon="icon-delete" circle type="success"></lc-button>
+    <lc-button icon="icon-delete" circle type="info"></lc-button>
+    <lc-button icon="icon-delete" circle type="warning"></lc-button>
+    <lc-button icon="icon-delete" circle type="danger"></lc-button>
+  </div>
 </template>
 
 <script setup>
@@ -43,6 +59,7 @@ import LcButton from './components/button/LcButton.vue';
 .row {
   display: flex;
   margin-top: 20px;
+
   .lc-button {
     margin-right: 20px;
   }
