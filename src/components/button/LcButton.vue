@@ -23,7 +23,7 @@ import { defineProps, useSlots, defineEmits } from "vue";
 const props = defineProps({
     type: {
         type: String, //字符串类型，否则报错
-        default: "primary",
+        default: "",
     },
     plain: {
         type: Boolean,

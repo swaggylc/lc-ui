@@ -55,11 +55,19 @@
     <lc-button disabled icon="icon-delete" circle type="warning"></lc-button>
     <lc-button disabled icon="icon-delete" circle type="danger"></lc-button>
   </div>
+  <div class="row">
+    <lc-dialog title="你好"></lc-dialog>
+    <lc-dialog>
+      <template v-slot:title>
+        <h3>我是插槽</h3>
+      </template>
+    </lc-dialog>
+  </div>
 </template>
 
 <script setup>
 import LcButton from './components/button/LcButton.vue';
-
+import LcDialog from './components/dialog/LcDialog.vue';
 const fn = () => {
   console.log('123');
 }

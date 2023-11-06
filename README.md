@@ -206,3 +206,80 @@ import './assets/font/font.css'
 #### disabled属性
 
 同上
+
+## Dialog组件
+
+#### 前置知识
+
+**vue的过渡与动画**
+
+**sync修饰符**
+
+**具名插槽与v-slot指令**
+
+#### 参数支持
+
+| 参数名  | 参数描述                         | 参数类型 | 默认值 |
+| ------- | -------------------------------- | -------- | ------ |
+| title   | 对话框标题                       | string   | 提示   |
+| width   | 宽度                             | string   | 50%    |
+| top     | 与顶部的距离                     | string   | 15vh   |
+| visible | 是否显示dialog（支持sync修饰符） | boolean  | false  |
+
+#### 事件支持
+
+| 事件名 | 事件描述       |
+| :----- | :------------- |
+| opened | 模态框显示事件 |
+| closed | 模态框关闭事件 |
+
+#### 插槽说明
+
+| 插槽名称 | 插槽描述           |
+| :------- | :----------------- |
+| default  | dialog的内容       |
+| title    | dialog的标题       |
+| footer   | dialog的底部操作区 |
+
+#### 自定义title内容
+
+将span放在slot内便于控制样式
+
+```html
+    <div class="lc-dialog_wrapper">
+        <div class="lc-dialog">
+            <div class="lc-dialog_header">
+                <slot name="title">
+                    <span class="lc-dialog_title">
+                        {{ title }}
+                    </span>
+                </slot>
+                <button class="lc-dialog_headerbtn">
+                    <i class="iconfont icon-delete"></i>
+                </button>
+            </div>
+            <div class="lc-dialog_body">
+                <span>这是一段信息</span>
+            </div>
+            <div class="lc-dialog_footer">
+                <lc-button>取消</lc-button>
+                <lc-button type="primary">确定</lc-button>
+            </div>
+        </div>
+    </div>
+```
+
+可以通过父子组件传参给子组件dialog指定title的内容，也可以通过具名插槽插入自定义的模板
+
+```html
+  <div class="row">
+    <lc-dialog title="你好"></lc-dialog>
+    <lc-dialog>
+      <template v-slot:title>
+        <h3>我是插槽</h3>
+      </template>
+    </lc-dialog>
+  </div>
+```
+
+#### 
