@@ -57,9 +57,18 @@
   </div>
   <div class="row">
     <lc-dialog title="你好"></lc-dialog>
-    <lc-dialog>
+    <lc-dialog top='200px' width="600px">
       <template v-slot:title>
-        <h3>我是插槽</h3>
+        <h3 style="color:red;">我是插槽</h3>
+      </template>
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+      <template v-slot:footer>
+        <lc-button>取消</lc-button>
+        <lc-button type="primary">确定</lc-button>
       </template>
     </lc-dialog>
   </div>

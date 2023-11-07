@@ -282,4 +282,65 @@ import './assets/font/font.css'
   </div>
 ```
 
-#### 
+#### 控制dialog宽度与距离顶部的距离
+
+父组件给子组件传递width与top的值
+
+```html
+    <lc-dialog top='200px' width="600px">
+```
+
+子组件接收并动态添加行内样式
+
+```vue
+<div class="lc-dialog" :style="{ width: width, marginTop: top }">
+
+const props = defineProps({
+    title: {
+        type: String,
+        default: '提示'
+    },
+    width: {
+        type: String,
+        default: '50%'
+    },
+    top: {
+        type: String,
+        default: '15vh'
+    }
+})
+```
+
+#### 给底部添加footer具名插槽，给body添加默认插槽
+
+使用具名插槽可以控制dialog底部内容
+
+```vue
+            <div class="lc-dialog_body">
+                <!-- 默认插槽 -->
+                <slot></slot>
+            </div>
+            <div class="lc-dialog_footer" v-if="$slots.footer">
+                <slot name="footer"></slot>
+            </div>
+```
+
+在父组件中使用
+
+```vue
+<lc-dialog top='200px' width="600px">
+      <template v-slot:title>
+        <h3 style="color:red;">我是插槽</h3>
+      </template>
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+      <template v-slot:footer>
+        <lc-button>取消</lc-button>
+        <lc-button type="primary">确定</lc-button>
+      </template>
+    </lc-dialog>
+```
+

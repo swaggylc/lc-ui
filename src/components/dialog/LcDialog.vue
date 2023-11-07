@@ -1,6 +1,6 @@
 <template>
     <div class="lc-dialog_wrapper">
-        <div class="lc-dialog">
+        <div class="lc-dialog" :style="{ width: width, marginTop: top }">
             <div class="lc-dialog_header">
                 <slot name="title">
                     <span class="lc-dialog_title">
@@ -12,11 +12,11 @@
                 </button>
             </div>
             <div class="lc-dialog_body">
-                <span>这是一段信息</span>
+                <!-- 默认插槽 -->
+                <slot></slot>
             </div>
-            <div class="lc-dialog_footer">
-                <lc-button>取消</lc-button>
-                <lc-button type="primary">确定</lc-button>
+            <div class="lc-dialog_footer" v-if="$slots.footer">
+                <slot name="footer"></slot>
             </div>
         </div>
     </div>
@@ -25,14 +25,22 @@
 <script setup>
 name: "LcDialog"
 import LcButton from '../button/LcButton.vue';
-import { defineProps } from 'vue';
+import { defineProps,useSlots } from 'vue';
 const props = defineProps({
     title: {
         type: String,
         default: '提示'
+    },
+    width: {
+        type: String,
+        default: '50%'
+    },
+    top: {
+        type: String,
+        default: '15vh'
     }
 })
-
+const $slots=useSlots()
 </script>
 
 <style lang="scss" scoped>
