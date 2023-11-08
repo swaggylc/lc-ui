@@ -1,5 +1,6 @@
 <template>
-    <div class="lc-dialog_wrapper">
+    <!-- 为了避免点击dialog也触发handleClose，可以阻止事件冒泡，也可以使用self修饰符，只有点击自身时触发handleClose -->
+    <div class="lc-dialog_wrapper" v-show="visible" @click.self="handleClose">
         <div class="lc-dialog" :style="{ width: width, marginTop: top }">
             <div class="lc-dialog_header">
                 <slot name="title">
@@ -7,7 +8,7 @@
                         {{ title }}
                     </span>
                 </slot>
-                <button class="lc-dialog_headerbtn">
+                <button class="lc-dialog_headerbtn" @click="handleClose">
                     <i class="iconfont icon-delete"></i>
                 </button>
             </div>
@@ -25,7 +26,7 @@
 <script setup>
 name: "LcDialog"
 import LcButton from '../button/LcButton.vue';
-import { defineProps,useSlots } from 'vue';
+import { defineProps, useSlots } from 'vue';
 const props = defineProps({
     title: {
         type: String,
@@ -38,9 +39,23 @@ const props = defineProps({
     top: {
         type: String,
         default: '15vh'
+    },
+    visible: {
+        type: Boolean,
+        default: false
     }
 })
-const $slots=useSlots()
+const $emits = defineEmits(['close'])
+const $slots = useSlots()
+
+/**
+* @description: 弹窗关闭的回调
+* @param {} 
+* @return {} 
+*/
+const handleClose = () => {
+    $emits('close', false)
+}
 </script>
 
 <style lang="scss" scoped>

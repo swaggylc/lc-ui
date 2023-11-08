@@ -56,8 +56,9 @@
     <lc-button disabled icon="icon-delete" circle type="danger"></lc-button>
   </div>
   <div class="row">
-    <lc-dialog title="你好"></lc-dialog>
-    <lc-dialog top='200px' width="600px">
+    <!-- <lc-dialog title="你好"></lc-dialog> -->
+    <lc-button type="primary" @click="visible = true">打开弹窗</lc-button>
+    <lc-dialog top='200px' width="600px" :visible="visible" @close="close">
       <template v-slot:title>
         <h3 style="color:red;">我是插槽</h3>
       </template>
@@ -67,8 +68,8 @@
         <li>3</li>
       </ul>
       <template v-slot:footer>
-        <lc-button>取消</lc-button>
-        <lc-button type="primary">确定</lc-button>
+        <lc-button @click="visible = false">取消</lc-button>
+        <lc-button type="primary" @click="visible = false">确定</lc-button>
       </template>
     </lc-dialog>
   </div>
@@ -77,8 +78,15 @@
 <script setup>
 import LcButton from './components/button/LcButton.vue';
 import LcDialog from './components/dialog/LcDialog.vue';
+import { ref } from 'vue';
+
+let visible = ref(false)
+
 const fn = () => {
   console.log('123');
+}
+const close = (value) => {
+  visible.value = value
 }
 
 </script>

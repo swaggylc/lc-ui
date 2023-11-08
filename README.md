@@ -344,3 +344,55 @@ const props = defineProps({
     </lc-dialog>
 ```
 
+#### 控制dialog的显示与隐藏
+
+父组件中传递visible属性
+
+```html
+    <lc-dialog top='200px' width="600px" :visible="visible">
+```
+
+子组件中接收
+
+```js
+    visible: {
+        type: Boolean,
+        default: false
+    }
+```
+
+visible控制最外层div的显示与隐藏，使用v-show（经常切换是否显示状态）
+
+```html
+    <div class="lc-dialog_wrapper" v-show="visible" @click.self="handleClose">
+```
+
+关闭dialog时，需要改变父组件中visible的值，涉及到子组件给父组件传值，首先想到自定义事件
+
+子组件触发父组件的close事件
+
+```js
+const $emits = defineEmits(['close'])
+/**
+* @description: 弹窗关闭的回调
+* @param {} 
+* @return {} 
+*/
+const handleClose = () => {
+    $emits('close', false)
+}
+```
+
+父组件注册close事件
+
+```html
+<lc-dialog top='200px' width="600px" :visible="visible" @close="close">
+```
+
+```js
+const close = (value) => {
+  visible.value = value
+}
+```
+
+但这种方式过于繁琐，考虑使用更便捷的sync语法糖
