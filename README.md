@@ -213,7 +213,7 @@ import './assets/font/font.css'
 
 **vue的过渡与动画**
 
-**sync修饰符**
+**sync修饰符（vue3中使用v-model）**
 
 **具名插槽与v-slot指令**
 
@@ -395,4 +395,59 @@ const close = (value) => {
 }
 ```
 
-但这种方式过于繁琐，考虑使用更便捷的sync语法糖
+但这种方式过于繁琐，考虑使用更便捷的sync语法糖（vue2）
+
+在vue3中sync语法糖被弃用了，所以我们可以通过v-model来达到同样的效果
+
+在父组件中：
+
+```html
+    <lc-dialog top='200px' width="600px" v-model:visible="visible">
+```
+
+![image-20231110211640039](C:\Users\juhe\AppData\Roaming\Typora\typora-user-images\image-20231110211640039.png)
+
+在子组件中：
+
+接收传递过来的值还是一样，通过props接收
+
+```js
+const props = defineProps({
+    title: {
+        type: String,
+        default: '提示'
+    },
+    width: {
+        type: String,
+        default: '50%'
+    },
+    top: {
+        type: String,
+        default: '15vh'
+    },
+    visible: {
+        type: Boolean,
+        default: false
+    }
+})
+```
+
+触发事件：
+
+事件的固定写法："update: ‘属性名’"
+
+```js
+/**
+* @description: 弹窗关闭的回调
+* @param {} 
+* @return {} 
+*/
+const handleClose = () => {
+    $emits('update:visible', false)
+}
+```
+
+![image-20231110212113911](C:\Users\juhe\AppData\Roaming\Typora\typora-user-images\image-20231110212113911.png)
+
+在vue2中是同样的用法，只不过是使用sync修饰符，就不再赘述
+

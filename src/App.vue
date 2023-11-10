@@ -58,7 +58,7 @@
   <div class="row">
     <!-- <lc-dialog title="你好"></lc-dialog> -->
     <lc-button type="primary" @click="visible = true">打开弹窗</lc-button>
-    <lc-dialog top='200px' width="600px" :visible="visible" @close="close">
+    <lc-dialog top='200px' width="600px" v-model:visible="visible">
       <template v-slot:title>
         <h3 style="color:red;">我是插槽</h3>
       </template>

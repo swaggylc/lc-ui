@@ -54,7 +54,7 @@ const $slots = useSlots()
 * @return {} 
 */
 const handleClose = () => {
-    $emits('close', false)
+    $emits('update:visible', false)
 }
 </script>
 
