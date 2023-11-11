@@ -1,26 +1,28 @@
 <template>
-    <!-- 为了避免点击dialog也触发handleClose，可以阻止事件冒泡，也可以使用self修饰符，只有点击自身时触发handleClose -->
-    <div class="lc-dialog_wrapper" v-show="visible" @click.self="handleClose">
-        <div class="lc-dialog" :style="{ width: width, marginTop: top }">
-            <div class="lc-dialog_header">
-                <slot name="title">
-                    <span class="lc-dialog_title">
-                        {{ title }}
-                    </span>
-                </slot>
-                <button class="lc-dialog_headerbtn" @click="handleClose">
-                    <i class="iconfont icon-delete"></i>
-                </button>
-            </div>
-            <div class="lc-dialog_body">
-                <!-- 默认插槽 -->
-                <slot></slot>
-            </div>
-            <div class="lc-dialog_footer" v-if="$slots.footer">
-                <slot name="footer"></slot>
+    <transition name="dialog-fade">
+        <!-- 为了避免点击dialog也触发handleClose，可以阻止事件冒泡，也可以使用self修饰符，只有点击自身时触发handleClose -->
+        <div class="lc-dialog_wrapper" v-show="visible" @click.self="handleClose">
+            <div class="lc-dialog" :style="{ width: width, marginTop: top }">
+                <div class="lc-dialog_header">
+                    <slot name="title">
+                        <span class="lc-dialog_title">
+                            {{ title }}
+                        </span>
+                    </slot>
+                    <button class="lc-dialog_headerbtn" @click="handleClose">
+                        <i class="iconfont icon-delete"></i>
+                    </button>
+                </div>
+                <div class="lc-dialog_body">
+                    <!-- 默认插槽 -->
+                    <slot></slot>
+                </div>
+                <div class="lc-dialog_footer" v-if="$slots.footer">
+                    <slot name="footer"></slot>
+                </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script setup>
@@ -121,6 +123,26 @@ const handleClose = () => {
                 margin-right: 20px;
             }
         }
+    }
+}
+
+.dialog-fade-enter-active {
+    animation: fade .3s;
+}
+
+.dialog-fade-leave-active {
+    animation: fade .3s reverse;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 </style>

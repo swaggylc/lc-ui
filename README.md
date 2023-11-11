@@ -451,3 +451,37 @@ const handleClose = () => {
 
 在vue2中是同样的用法，只不过是使用sync修饰符，就不再赘述
 
+#### dialog的动画实现
+
+详细信息参考官方文档
+
+定义一个fade动画：
+
+```less
+.dialog-fade-enter-active {
+    animation: fade .3s;
+}
+
+.dialog-fade-leave-active {
+    // 离开时反向调用
+    animation: fade .3s reverse;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+```
+
+然后使用transition包裹整个dialog组件：
+
+```html
+    <transition name="dialog-fade">
+```
