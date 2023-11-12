@@ -485,3 +485,38 @@ const handleClose = () => {
 ```html
     <transition name="dialog-fade">
 ```
+
+#### 深度选择器
+
+scoped会给当前组件的模板中所有的元素都添加上一个随机的属性：v-data-随机字母+数字
+
+scoped会给当前所有的样式添加同样的属性选择器
+
+这样当前组件的样式就不会被其他组件所影响，如使用其他组件
+
+写法：scss: ::v-deep	less： /deep/	css:>>>
+
+## Input组件
+
+#### 参数支持
+
+| 参数名称      | 参数描述                  | 参数类型 | 默认值 |
+| ------------- | ------------------------- | -------- | ------ |
+| placeholder   | 占位符                    | string   | 无     |
+| type          | 文本框类型(text/password) | string   | text   |
+| disabled      | 禁用                      | boolean  | false  |
+| clearable     | 是否显示清空按钮          | boolean  | false  |
+| show-password | 是否显示密码显示按钮      | boolean  | false  |
+| name          | name属性                  | string   | 无     |
+
+#### 事件支持
+
+| 事件名称 | 事件描述     |
+| -------- | ------------ |
+| blur     | 失去焦点事件 |
+| change   | 内容改变事件 |
+| focus    | 获取焦点事件 |
+
+基本的属性与动态绑定样式与上面的组件一致，就不再赘述
+
+#### v-model的属性支持

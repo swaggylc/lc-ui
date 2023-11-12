@@ -58,9 +58,9 @@
   <div class="row">
     <!-- <lc-dialog title="你好"></lc-dialog> -->
     <lc-button type="primary" @click="visible = true">打开弹窗</lc-button>
-    <lc-dialog top='200px' width="600px" v-model:visible="visible">
+    <lc-dialog top="200px" width="600px" v-model:visible="visible">
       <template v-slot:title>
-        <h3 style="color:red;">我是插槽</h3>
+        <h3 style="color: red">我是插槽</h3>
       </template>
       <ul>
         <li>1</li>
@@ -73,28 +73,41 @@
       </template>
     </lc-dialog>
   </div>
+  <div class="row">
+    <div class="col">
+      <lc-input placeholder="请输入用户名" :disabled="true"></lc-input>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <lc-input placeholder="请输入用户名"></lc-input>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import LcButton from './components/button/LcButton.vue';
-import LcDialog from './components/dialog/LcDialog.vue';
-import { ref } from 'vue';
+import LcButton from "./components/button/LcButton.vue";
+import LcDialog from "./components/dialog/LcDialog.vue";
+import LcInput from "./components/input/LcInput.vue";
+import { ref } from "vue";
 
-let visible = ref(false)
+let visible = ref(false);
 
 const fn = () => {
-  console.log('123');
-}
+  console.log("123");
+};
 const close = (value) => {
-  visible.value = value
-}
-
+  visible.value = value;
+};
 </script>
 
 <style lang="scss" scoped>
 .row {
   display: flex;
   margin-top: 20px;
+  .col {
+    width: 30%;
+  }
 
   .lc-button {
     margin-right: 20px;
