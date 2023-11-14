@@ -80,7 +80,8 @@
   </div>
   <div class="row">
     <div class="col">
-      <lc-input placeholder="请输入用户名"></lc-input>
+      <!-- 父组件中通过v-model绑定，子组件中通过value接收 -->
+      <lc-input placeholder="请输入用户名" v-model:userName="userName"></lc-input>
     </div>
   </div>
 </template>
@@ -92,7 +93,7 @@ import LcInput from "./components/input/LcInput.vue";
 import { ref } from "vue";
 
 let visible = ref(false);
-
+let userName = ref('zs')
 const fn = () => {
   console.log("123");
 };
@@ -105,6 +106,7 @@ const close = (value) => {
 .row {
   display: flex;
   margin-top: 20px;
+
   .col {
     width: 30%;
   }

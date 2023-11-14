@@ -520,3 +520,81 @@ scoped会给当前所有的样式添加同样的属性选择器
 基本的属性与动态绑定样式与上面的组件一致，就不再赘述
 
 #### v-model的属性支持
+
+当我们给一个input框进行双向数据绑定时，我们需要使用v-model
+
+而v-model实质是做了两件事，绑定input的value值，通过input的change事件改变绑定的value值
+
+```html
+      <input :value="username" @input="username=$event.target.value"/>
+```
+
+父组件中：
+
+```html
+    <div class="col">
+      <!-- 父组件中通过v-model绑定，子组件中通过value接收 -->
+      <lc-input placeholder="请输入用户名" v-model="userName"></lc-input>
+    </div>
+```
+
+子组件中：
+
+```vue
+      <input
+      class="lc-input_inner"
+      :class="{ 'is-disabled': disabled }"
+      :type="type"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :clearable="clearable"
+      :name="name"
+      :value="value"
+    />
+  	value:{
+    	type:String,
+    	default:''
+  	}
+```
+
+但由于这样只是实现了单向数据传递，我们还要在子组件中修改value的值并传回给父组件：
+
+与控制dialog组件的显示与隐藏一样，、
+
+父组件中：
+
+```html
+    <div class="col">
+      <!-- 父组件中通过v-model绑定，子组件中通过value接收 -->
+      <lc-input placeholder="请输入用户名" v-model:userName="userName"></lc-input>
+    </div>
+```
+
+子组件中：
+
+```vue
+      <input
+      class="lc-input_inner"
+      :class="{ 'is-disabled': disabled }"
+      :type="type"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :clearable="clearable"
+      :name="name"
+      :value="userName"
+      @input="handleInput"
+    />
+  	userName:{
+    	type:String,
+    	default:''
+  	}
+  	const $emits=defineEmits(['update:userName'])
+
+	const handleInput=(e)=>{
+  		console.log('111');
+  		console.log("e---",e);
+  	$emits('update:userName',e.target.value)
+	}
+```
+
+这样我们就实现了input数据的双向绑定

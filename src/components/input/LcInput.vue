@@ -8,13 +8,15 @@
       :disabled="disabled"
       :clearable="clearable"
       :name="name"
+      :value="userName"
+      @input="handleInput"
     />
   </div>
 </template>
 
 <script setup>
 name: "LcInput";
-import { ref, defineProps } from "vue";
+import { ref, defineProps,defineEmits } from "vue";
 const props = defineProps({
   type: {
     type: String,
@@ -36,7 +38,18 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  userName:{
+    type:String,
+    default:''
+  }
 });
+const $emits=defineEmits(['update:userName'])
+
+const handleInput=(e)=>{
+  console.log('111');
+  console.log("e---",e);
+  $emits('update:userName',e.target.value)
+}
 </script>
 
 <style lang="scss" scoped>
