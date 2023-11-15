@@ -549,24 +549,24 @@ scoped会给当前所有的样式添加同样的属性选择器
       :disabled="disabled"
       :clearable="clearable"
       :name="name"
-      :value="value"
+      :value="modelValue"
     />
-  	value:{
+  	modelValue:{
     	type:String,
     	default:''
   	}
 ```
 
-但由于这样只是实现了单向数据传递，我们还要在子组件中修改value的值并传回给父组件：
+但由于这样只是实现了单向数据传递，我们还要在子组件中修改modelValue的值并传回给父组件：
 
-与控制dialog组件的显示与隐藏一样，、
+与控制dialog组件的显示与隐藏一样，但不用指定特定的变量
 
 父组件中：
 
 ```html
     <div class="col">
       <!-- 父组件中通过v-model绑定，子组件中通过value接收 -->
-      <lc-input placeholder="请输入用户名" v-model:userName="userName"></lc-input>
+      <lc-input placeholder="请输入用户名" v-model="userName"></lc-input>
     </div>
 ```
 
@@ -581,20 +581,88 @@ scoped会给当前所有的样式添加同样的属性选择器
       :disabled="disabled"
       :clearable="clearable"
       :name="name"
-      :value="userName"
+      :value="modelValue"
       @input="handleInput"
     />
-  	userName:{
+  	modelValue:{
     	type:String,
     	default:''
   	}
-  	const $emits=defineEmits(['update:userName'])
+  	const $emits=defineEmits(['update:modelValue'])
 
 	const handleInput=(e)=>{
   		console.log('111');
   		console.log("e---",e);
-  	$emits('update:userName',e.target.value)
+  	$emits('update:modelValue',e.target.value)
 	}
 ```
 
 这样我们就实现了input数据的双向绑定
+
+#### clearable属性与show-password
+
+完成基本样式结构
+
+```html
+  <div class="lc-input" :class="{ 'iconfont icon-eye': inputSuffix }">
+    <input
+      class="lc-input_inner"
+      :class="{ 'is-disabled': disabled }"
+      :type="type"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :clearable="clearable"
+      :name="name"
+      :value="modelValue"
+      @input="handleInput"
+    />
+    <span class="lc-input_suffix">
+      <i class="iconfont icon-eye" v-if="showPassword"></i>
+      <i class="iconfont icon-delete" v-if="clearable"></i>
+    </span>
+  </div>
+```
+
+子组件中接收属性：
+
+```js
+  clearable: {
+    type: Boolean,
+    default: false,
+  },
+  showPassword: {
+    type: Boolean,
+    default: false,
+  },
+```
+
+点击icon图标时应该清除modelValue的值，将其置为空串就好
+
+模板内：
+
+```html
+    <span class="lc-input_suffix" v-if="inputSuffix">
+      <i class="iconfont icon-eye" v-if="showPassword"></i>
+      <i
+        class="iconfont icon-delete"
+        v-if="clearable && modelValue"
+        @click="clear"
+      ></i>
+    </span>
+```
+
+script内：
+
+```js
+/**
+ * @description: 清空输入框的回调
+ * @param {}
+ * @return {}
+ */
+const clear = () => {
+  $emits("update:modelValue", "");
+};
+```
+
+这样我们就完成了清空输入框的功能
+

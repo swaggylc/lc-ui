@@ -32,28 +32,28 @@
     <lc-button circle type="danger">圆</lc-button>
   </div>
   <div class="row">
-    <lc-button icon="icon-delete">一号按钮</lc-button>
-    <lc-button icon="icon-delete" type="primary">primary</lc-button>
-    <lc-button icon="icon-delete" type="success">success</lc-button>
-    <lc-button icon="icon-delete" type="info">info</lc-button>
-    <lc-button icon="icon-delete" type="warning">warning</lc-button>
-    <lc-button icon="icon-delete" type="danger">danger</lc-button>
+    <lc-button icon="icon-check">一号按钮</lc-button>
+    <lc-button icon="icon-check" type="primary">primary</lc-button>
+    <lc-button icon="icon-check" type="success">success</lc-button>
+    <lc-button icon="icon-check" type="info">info</lc-button>
+    <lc-button icon="icon-check" type="warning">warning</lc-button>
+    <lc-button icon="icon-check" type="danger">danger</lc-button>
   </div>
   <div class="row">
-    <lc-button @btnClick="fn" icon="icon-delete" circle></lc-button>
-    <lc-button icon="icon-delete" circle type="primary"></lc-button>
-    <lc-button icon="icon-delete" circle type="success"></lc-button>
-    <lc-button icon="icon-delete" circle type="info"></lc-button>
-    <lc-button icon="icon-delete" circle type="warning"></lc-button>
-    <lc-button icon="icon-delete" circle type="danger"></lc-button>
+    <lc-button @btnClick="fn" icon="icon-check" circle></lc-button>
+    <lc-button icon="icon-check" circle type="primary"></lc-button>
+    <lc-button icon="icon-check" circle type="success"></lc-button>
+    <lc-button icon="icon-check" circle type="info"></lc-button>
+    <lc-button icon="icon-check" circle type="warning"></lc-button>
+    <lc-button icon="icon-check" circle type="danger"></lc-button>
   </div>
   <div class="row">
-    <lc-button disabled icon="icon-delete" circle></lc-button>
-    <lc-button disabled icon="icon-delete" circle type="primary"></lc-button>
-    <lc-button disabled icon="icon-delete" circle type="success"></lc-button>
-    <lc-button disabled icon="icon-delete" circle type="info"></lc-button>
-    <lc-button disabled icon="icon-delete" circle type="warning"></lc-button>
-    <lc-button disabled icon="icon-delete" circle type="danger"></lc-button>
+    <lc-button disabled icon="icon-check" circle></lc-button>
+    <lc-button disabled icon="icon-check" circle type="primary"></lc-button>
+    <lc-button disabled icon="icon-check" circle type="success"></lc-button>
+    <lc-button disabled icon="icon-check" circle type="info"></lc-button>
+    <lc-button disabled icon="icon-check" circle type="warning"></lc-button>
+    <lc-button disabled icon="icon-check" circle type="danger"></lc-button>
   </div>
   <div class="row">
     <!-- <lc-dialog title="你好"></lc-dialog> -->
@@ -81,7 +81,7 @@
   <div class="row">
     <div class="col">
       <!-- 父组件中通过v-model绑定，子组件中通过value接收 -->
-      <lc-input placeholder="请输入用户名" v-model:userName="userName"></lc-input>
+      <lc-input placeholder="请输入用户名" v-model="userName" clearable></lc-input>
     </div>
   </div>
 </template>

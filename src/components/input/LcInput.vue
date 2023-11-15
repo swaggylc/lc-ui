@@ -1,5 +1,5 @@
 <template>
-  <div class="lc-input">
+  <div class="lc-input" :class="{ 'lc-input_suffix': inputSuffix }">
     <input
       class="lc-input_inner"
       :class="{ 'is-disabled': disabled }"
@@ -8,15 +8,23 @@
       :disabled="disabled"
       :clearable="clearable"
       :name="name"
-      :value="userName"
+      :value="modelValue"
       @input="handleInput"
     />
+    <span class="lc-input_suffix" v-if="inputSuffix">
+      <i class="iconfont icon-eye" v-if="showPassword"></i>
+      <i
+        class="iconfont icon-delete"
+        v-if="clearable && modelValue"
+        @click="clear"
+      ></i>
+    </span>
   </div>
 </template>
 
 <script setup>
 name: "LcInput";
-import { ref, defineProps,defineEmits } from "vue";
+import { ref, defineProps, defineEmits, computed } from "vue";
 const props = defineProps({
   type: {
     type: String,
@@ -38,18 +46,42 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  userName:{
-    type:String,
-    default:''
-  }
+  modelValue: {
+    type: String,
+    default: "",
+  },
+  clearable: {
+    type: Boolean,
+    default: false,
+  },
+  showPassword: {
+    type: Boolean,
+    default: false,
+  },
 });
-const $emits=defineEmits(['update:userName'])
+const $emits = defineEmits(["update:modelValue"]);
 
-const handleInput=(e)=>{
-  console.log('111');
-  console.log("e---",e);
-  $emits('update:userName',e.target.value)
-}
+const inputSuffix = computed(() => {
+  return props.clearable || props.showPassword;
+});
+
+/**
+ * @description: 输入框改变值的回调
+ * @param {} object 事件对象
+ * @return {}
+ */
+const handleInput = (e) => {
+  $emits("update:modelValue", e.target.value);
+};
+
+/**
+ * @description: 清空输入框的回调
+ * @param {}
+ * @return {}
+ */
+const clear = () => {
+  $emits("update:modelValue", "");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -58,6 +90,7 @@ const handleInput=(e)=>{
   position: relative;
   font-size: 14px;
   display: inline-block;
+
   .lc-input_inner {
     -webkit-appearance: none;
     background-color: #fff;
@@ -79,12 +112,36 @@ const handleInput=(e)=>{
       outline: none;
       border-color: #409eff;
     }
+
     // input禁用样式
     &.is-disabled {
       background-color: #f5f7fa;
       border-color: #e4e7ed;
       color: #c0c4cc;
       cursor: not-allowed;
+    }
+  }
+}
+// input的后缀图标
+.lc-input_suffix {
+  .lc-input_inner {
+    padding-right: 30px;
+  }
+  .lc-input_suffix {
+    position: absolute;
+    right: 10px;
+    height: 100%;
+    top: 0;
+    line-height: 40px;
+    text-align: center;
+    color: #c0c4cc;
+    transition: all 0.3s;
+    z-index: 900;
+    i {
+      color: #c0c4cc;
+      font-size: 14px;
+      cursor: pointer;
+      transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     }
   }
 }
