@@ -666,3 +666,25 @@ const clear = () => {
 
 这样我们就完成了清空输入框的功能
 
+接下来做能够展示密码与否的功能，展示密码无非是控制input的type属性，若是text则显示密码，若为password则不会展示密码，而我们又不能直接修改父组件中传过来的值，考虑设置一个特殊的值来控制
+
+```js
+// 控制是否展示密码
+let passwordVisible = ref(false);
+/**
+ * @description: 切换是否显示密码
+ * @return {}
+ */
+const passwordHandle = () => {
+  passwordVisible.value = !passwordVisible.value;
+};
+```
+
+在模板中：
+
+```js
+      :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
+```
+
+这样我们就能动态的控制type值，从而达到展示密码与否的目的
+

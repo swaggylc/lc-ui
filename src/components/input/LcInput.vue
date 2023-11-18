@@ -3,7 +3,7 @@
     <input
       class="lc-input_inner"
       :class="{ 'is-disabled': disabled }"
-      :type="type"
+      :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
       :placeholder="placeholder"
       :disabled="disabled"
       :clearable="clearable"
@@ -12,7 +12,12 @@
       @input="handleInput"
     />
     <span class="lc-input_suffix" v-if="inputSuffix">
-      <i class="iconfont icon-eye" v-if="showPassword"></i>
+      <i
+        class="iconfont icon-eye"
+        :class="{ 'icon-eye-active': passwordVisible }"
+        v-if="showPassword"
+        @click="passwordHandle"
+      ></i>
       <i
         class="iconfont icon-delete"
         v-if="clearable && modelValue"
@@ -64,6 +69,8 @@ const $emits = defineEmits(["update:modelValue"]);
 const inputSuffix = computed(() => {
   return props.clearable || props.showPassword;
 });
+// 控制是否展示密码
+let passwordVisible = ref(false);
 
 /**
  * @description: 输入框改变值的回调
@@ -76,11 +83,17 @@ const handleInput = (e) => {
 
 /**
  * @description: 清空输入框的回调
- * @param {}
  * @return {}
  */
 const clear = () => {
   $emits("update:modelValue", "");
+};
+/**
+ * @description: 切换是否显示密码
+ * @return {}
+ */
+const passwordHandle = () => {
+  passwordVisible.value = !passwordVisible.value;
 };
 </script>
 
@@ -142,6 +155,9 @@ const clear = () => {
       font-size: 14px;
       cursor: pointer;
       transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+    .icon-eye-active {
+      color: blue;
     }
   }
 }

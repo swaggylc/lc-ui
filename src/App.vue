@@ -81,7 +81,20 @@
   <div class="row">
     <div class="col">
       <!-- 父组件中通过v-model绑定，子组件中通过value接收 -->
-      <lc-input placeholder="请输入用户名" v-model="userName" clearable></lc-input>
+      <lc-input
+        placeholder="请输入用户名"
+        v-model="userName"
+        clearable
+      ></lc-input>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <lc-input
+        placeholder="请输入密码"
+        v-model="passWord"
+        showPassword
+      ></lc-input>
     </div>
   </div>
 </template>
@@ -93,7 +106,8 @@ import LcInput from "./components/input/LcInput.vue";
 import { ref } from "vue";
 
 let visible = ref(false);
-let userName = ref('zs')
+let userName = ref("zs");
+let passWord = ref("");
 const fn = () => {
   console.log("123");
 };
