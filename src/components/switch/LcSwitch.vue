@@ -1,5 +1,9 @@
 <template>
-  <div class="lc-switch">
+  <div
+    class="lc-switch"
+    :class="{ 'is-checked': modelValue }"
+    @click="changeActive"
+  >
     <span class="lc-switch_core">
       <span class="lc-switch_button"></span>
     </span>
@@ -7,7 +11,24 @@
 </template>
 
 <script setup>
-name:"LcSwitch"
+name: "LcSwitch";
+import { ref, defineProps, defineEmits, computed } from "vue";
+const props = defineProps({
+  name: {
+    type: String,
+    default: "switch",
+  },
+  modelValue: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+let $emits = defineEmits(["update:modelValue"]);
+
+const changeActive = () => {
+  $emits("update:modelValue", !props.modelValue);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -41,6 +62,16 @@ name:"LcSwitch"
       width: 16px;
       height: 16px;
       background-color: #fff;
+    }
+  }
+}
+// 选中样式
+.is-checked {
+  .lc-switch_core {
+    border-color: #409eff;
+    background-color: #409eff;
+    .lc-switch_button {
+      transform: translateX(20px);
     }
   }
 }

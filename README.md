@@ -717,3 +717,59 @@ const passwordHandle = () => {
 </template>
 ```
 
+#### v-model的双向绑定
+
+与之前的组件一样，我们通过v-model来进行双向的数据绑定
+
+父组件中：
+
+```html
+    <div class="col">
+      <lc-switch v-model="switchActive" :name="switchName"></lc-switch>
+    </div>
+```
+
+子组件中：
+
+```js
+const props = defineProps({
+  name: {
+    type: String,
+    default: "switch",
+  },
+  modelValue: {
+    type: Boolean,
+    default: false,
+  },
+});
+```
+
+根据v-model自带的属性，我们对父组件中的数据进行间接的修改
+
+```js
+let $emits = defineEmits(["update:modelValue"]);
+
+const changeActive = () => {
+  $emits("update:modelValue", !props.modelValue);
+};
+```
+
+好处就是能够省去一个我们自己手动定义的自定义事件
+
+再动态加上样式：
+
+```js
+    :class="{ 'is-checked': modelValue }"
+    
+    
+    .is-checked {
+  .lc-switch_core {
+    border-color: #409eff;
+    background-color: #409eff;
+    .lc-switch_button {
+      transform: translateX(20px);
+   	 }
+ 	 }
+	}
+```
+

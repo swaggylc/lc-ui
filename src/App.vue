@@ -99,7 +99,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <lc-switch></lc-switch>
+      <lc-switch v-model="switchActive" :name="switchName"></lc-switch>
     </div>
   </div>
 </template>
@@ -114,6 +114,8 @@ import { ref } from "vue";
 let visible = ref(false);
 let userName = ref("zs");
 let passWord = ref("");
+let switchName=ref('swaggy')
+let switchActive=ref('false')
 const fn = () => {
   console.log("123");
 };
