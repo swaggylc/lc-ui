@@ -41,7 +41,7 @@ const props = defineProps({
 
 let core = ref(null);
 
-let $emits = defineEmits(["update:modelValue"]);
+let $emits = defineEmits(["update:modelValue", "change"]);
 
 const changeActive = () => {
   $emits("update:modelValue", !props.modelValue);
@@ -49,6 +49,7 @@ const changeActive = () => {
   nextTick(() => {
     changeColor();
   });
+  $emits("change", !props.modelValue);
 };
 /**
  * @description: 更改颜色的方法

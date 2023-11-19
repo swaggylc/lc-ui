@@ -109,6 +109,7 @@
         :name="switchName"
         activeColor="red"
         inactiveColor="#333"
+        @change="change"
       ></lc-switch>
     </div>
   </div>
@@ -133,6 +134,12 @@ const fn = () => {
 const close = (value) => {
   visible.value = value;
 };
+/**
+ * @description: switch改变的回调
+ * @param {} boolean switch的值
+ * @return {}
+ */
+const change = (value) => {};
 </script>
 
 <style lang="scss" scoped>

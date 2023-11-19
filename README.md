@@ -1,4 +1,4 @@
-## Button组件
+##  Button组件
 
 #### 前置知识
 
@@ -837,4 +837,19 @@ const changeActive = () => {
 ```
 
 这样我们就完成了自定义颜色的属性
+
+#### onchange事件
+
+```js
+//接受父组件的事件，点击时通过$emits触发，即完成了onchange事件
+let $emits = defineEmits(["update:modelValue", "change"]);
+const changeActive = () => {
+  $emits("update:modelValue", !props.modelValue);
+  //   在数据发生变化后，但dom还未更新，造成第一次点击不会出现变色的bug，应该在nextTick中调用
+  nextTick(() => {
+    changeColor();
+  });
+  $emits("change", !props.modelValue);
+};
+```
 
