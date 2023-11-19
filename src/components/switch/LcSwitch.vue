@@ -4,7 +4,7 @@
     :class="{ 'is-checked': modelValue }"
     @click="changeActive"
   >
-    <span class="lc-switch_core">
+    <span class="lc-switch_core" ref="core">
       <span class="lc-switch_button"></span>
     </span>
   </div>
@@ -12,7 +12,14 @@
 
 <script setup>
 name: "LcSwitch";
-import { ref, defineProps, defineEmits, computed } from "vue";
+import {
+  ref,
+  defineProps,
+  defineEmits,
+  computed,
+  onMounted,
+  nextTick,
+} from "vue";
 const props = defineProps({
   name: {
     type: String,
@@ -22,13 +29,43 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  activeColor: {
+    type: String,
+    default: "#1ec63b",
+  },
+  inactiveColor: {
+    type: String,
+    default: "#dd001b",
+  },
 });
+
+let core = ref(null);
 
 let $emits = defineEmits(["update:modelValue"]);
 
 const changeActive = () => {
   $emits("update:modelValue", !props.modelValue);
+  //   在数据发生变化后，但dom还未更新，造成第一次点击不会出现变色的bug，应该在nextTick中调用
+  nextTick(() => {
+    changeColor();
+  });
 };
+/**
+ * @description: 更改颜色的方法
+ * @return {}
+ */
+const changeColor = () => {
+  if (props.activeColor != "#1ec63b" || props.inactiveColor != "#dd001b") {
+    // 改变switch的颜色
+    let color = props.modelValue ? props.activeColor : props.inactiveColor;
+    core.value.style.borderColor = color;
+    core.value.style.backgroundColor = color;
+  }
+};
+
+onMounted(() => {
+  changeColor();
+});
 </script>
 
 <style lang="scss" scoped>

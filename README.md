@@ -773,3 +773,68 @@ const changeActive = () => {
 	}
 ```
 
+#### 自定义颜色
+
+父组件中传入自定义的颜色：
+
+```html
+      <lc-switch
+        v-model="switchActive2"
+        :name="switchName"
+        activeColor="red"
+        inactiveColor="#333"
+      ></lc-switch>
+```
+
+子组件中接收：
+
+```js
+  activeColor: {
+    type: String,
+    default: "#1ec63b",
+  },
+  inactiveColor: {
+    type: String,
+    default: "#dd001b",
+  },
+```
+
+定义一个方法，能够更改switch的颜色：
+
+```js
+//由于需要操作dom，所以给<span class="lc-switch_core" ref="core">打上ref标签
+
+let core = ref(null);
+
+/**
+ * @description: 更改颜色的方法
+ * @return {}
+ */
+const changeColor = () => {
+  if (props.activeColor != "#1ec63b" || props.inactiveColor != "#dd001b") {
+    // 改变switch的颜色
+    let color = props.modelValue ? props.activeColor : props.inactiveColor;
+    core.value.style.borderColor = color;
+    core.value.style.backgroundColor = color;
+  }
+};
+```
+
+在onMounted中调用，以及在更改switch状态时调用：
+
+```js
+onMounted(() => {
+  changeColor();
+});
+
+const changeActive = () => {
+  $emits("update:modelValue", !props.modelValue);
+  //   在数据发生变化后，但dom还未更新，造成第一次点击不会出现变色的bug，应该在nextTick中调用
+  nextTick(() => {
+    changeColor();
+  });
+};
+```
+
+这样我们就完成了自定义颜色的属性
+
