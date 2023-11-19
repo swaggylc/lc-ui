@@ -97,12 +97,18 @@
       ></lc-input>
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+      <lc-switch></lc-switch>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import LcButton from "./components/button/LcButton.vue";
 import LcDialog from "./components/dialog/LcDialog.vue";
 import LcInput from "./components/input/LcInput.vue";
+import LcSwitch from "./components/switch/LcSwitch.vue";
 import { ref } from "vue";
 
 let visible = ref(false);
