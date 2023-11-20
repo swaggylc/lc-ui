@@ -115,7 +115,10 @@
   </div>
   <div class="row">
     <div class="col">
+      <lc-radio>男</lc-radio>
+      <lc-radio>女</lc-radio>
       <lc-radio></lc-radio>
+
     </div>
   </div>
 </template>
