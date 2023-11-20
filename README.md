@@ -694,7 +694,7 @@ const passwordHandle = () => {
 
 | 参数名        | 参数描述           | 参数类型 | 默认值  |
 | :------------ | :----------------- | :------- | :------ |
-| v-model       | 双向绑定           | 布尔类型 | false   |
+| v-model       | 双向绑定           | Boolean  | false   |
 | name          | name属性           | string   | text    |
 | activeColor   | 自定义的激活颜色   | string   | #1ec63b |
 | inactiveColor | 自定义的不激活颜色 | string   | #dd001b |
@@ -853,3 +853,36 @@ const changeActive = () => {
 };
 ```
 
+## Radio组件
+
+#### 前置知识
+
+在vue中对radio的使用
+
+```vue
+<div id="example-4">
+  <input type="radio" id="one" value="One" v-model="picked">
+  <label for="one">One</label>
+  <br>
+  <input type="radio" id="two" value="Two" v-model="picked">
+  <label for="two">Two</label>
+  <br>
+  <span>Picked: {{ picked }}</span>
+</div>
+new Vue({
+  el: '#example-4',
+  data: {
+    picked: ''
+  }
+})
+```
+
+
+
+#### 参数支持
+
+| 参数名称 | 参数描述        | 参数类型                | 默认值 |
+| :------- | :-------------- | :---------------------- | :----- |
+| v-model  | 双向绑定        | Boolean                 | false  |
+| label    | 单选框和value值 | String，Number，Boolean | ' '    |
+| name     | name            | String                  | ' '    |

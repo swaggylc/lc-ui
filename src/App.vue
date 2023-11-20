@@ -113,6 +113,11 @@
       ></lc-switch>
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+      <lc-radio></lc-radio>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -120,6 +125,7 @@ import LcButton from "./components/button/LcButton.vue";
 import LcDialog from "./components/dialog/LcDialog.vue";
 import LcInput from "./components/input/LcInput.vue";
 import LcSwitch from "./components/switch/LcSwitch.vue";
+import LcRadio from "./components/radio/LcRadio.vue";
 import { ref } from "vue";
 
 let visible = ref(false);
