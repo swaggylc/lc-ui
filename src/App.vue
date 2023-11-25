@@ -123,9 +123,21 @@
   <div class="row">
     <div class="col">
       <lc-radio-group v-model="gender">
-        <lc-radio label="1" >男</lc-radio>
-        <lc-radio label="0" >女</lc-radio>
+        <lc-radio label="1">男</lc-radio>
+        <lc-radio label="0">女</lc-radio>
       </lc-radio-group>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <lc-form :model="model" label-width="100px">
+        <lc-form-item label="用户名">
+          <lc-input placeholder="请输入用户名" v-model="model.userName"></lc-input>
+        </lc-form-item>
+        <lc-form-item label="密码">
+          <lc-input placeholder="请输入密码" v-model="model.passWord" showPassword></lc-input>
+        </lc-form-item>
+      </lc-form>
     </div>
   </div>
 </template>
@@ -137,6 +149,8 @@ import LcInput from "./components/input/LcInput.vue";
 import LcSwitch from "./components/switch/LcSwitch.vue";
 import LcRadio from "./components/radio/LcRadio.vue";
 import LcRadioGroup from "./components/radio-group/LcRadioGroup.vue";
+import LcForm from "./components/form/LcForm.vue";
+import LcFormItem from "./components/form-item/LcFormItem.vue";
 import { ref } from "vue";
 
 let visible = ref(false);
@@ -146,6 +160,10 @@ let switchName = ref("swaggy");
 let switchActive1 = ref(false);
 let switchActive2 = ref(false);
 let gender = ref("1");
+let model = ref({
+  userName: "",
+  passWord: "",
+});
 const fn = () => {
   console.log("123");
 };

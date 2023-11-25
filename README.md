@@ -1009,3 +1009,72 @@ let isGroup = computed(() => {
   <label class="lc-radio" :class="{ 'is-checked': label == model }">
 ```
 
+## CheckBox组件
+
+由于checkbox与radio几乎一致，在这里就不再次封装了，直接封装form组件
+
+## Form组件
+
+在form-item组件中准备插槽以供表单元素使用，同样需要在form中准备插槽以供form-item使用：
+
+form-item中：
+
+```html
+<template>
+  <div class="lc-form-item">
+    <label :style="{ width: form.ctx.labelWidth }" class="lc-form-item_label">{{
+      label
+    }}</label>
+    <div class="lc-form-item_content">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, defineProps, inject } from "vue";
+const props = defineProps({
+  label: {
+    type: String,
+    default: "",
+  },
+});
+// 接收form传过来的实例
+const form = inject("form", undefined);
+</script>
+```
+
+form中：
+
+```html
+<template>
+  <div class="lc-form">
+    <slot></slot>
+  </div>
+</template>
+
+<script setup>
+import { ref, defineProps, provide, getCurrentInstance } from "vue";
+
+const props = defineProps({
+  model: {
+    type: Object,
+    default() {
+      return {};
+    },
+  },
+  labelWidth: {
+    type: String,
+    default: "50px",
+  },
+});
+
+const form = getCurrentInstance();
+
+// 将form组件传递给任何的form-item
+provide("form", form);
+</script>
+```
+
+至此，简单的一些组件就已经封装完成了。
+

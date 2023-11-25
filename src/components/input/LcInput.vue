@@ -63,7 +63,7 @@ const props = defineProps({
     default: false,
   },
 });
-const $emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["update:modelValue"]);
 
 const inputSuffix = computed(() => {
   return props.clearable || props.showPassword;
@@ -77,7 +77,7 @@ let passwordVisible = ref(false);
  * @return {}
  */
 const handleInput = (e) => {
-  $emits("update:modelValue", e.target.value);
+  emits("update:modelValue", e.target.value);
 };
 
 /**
@@ -85,7 +85,7 @@ const handleInput = (e) => {
  * @return {}
  */
 const clear = () => {
-  $emits("update:modelValue", "");
+  emits("update:modelValue", "");
 };
 /**
  * @description: 切换是否显示密码

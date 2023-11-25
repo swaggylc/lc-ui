@@ -40,15 +40,15 @@ const props = defineProps({
 
 let core = ref(null);
 
-let $emits = defineEmits(["update:modelValue", "change"]);
+let emits = defineEmits(["update:modelValue", "change"]);
 
 const changeActive = () => {
-  $emits("update:modelValue", !props.modelValue);
+  emits("update:modelValue", !props.modelValue);
   //   在数据发生变化后，但dom还未更新，造成第一次点击不会出现变色的bug，应该在nextTick中调用
   nextTick(() => {
     changeColor();
   });
-  $emits("change", !props.modelValue);
+  emits("change", !props.modelValue);
 };
 /**
  * @description: 更改颜色的方法

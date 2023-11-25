@@ -46,7 +46,7 @@ const props = defineProps({
     default: false,
   },
 });
-const $emits = defineEmits(["close", "update:visible"]);
+const emits = defineEmits(["close", "update:visible"]);
 
 /**
  * @description: 弹窗关闭的回调
@@ -54,7 +54,7 @@ const $emits = defineEmits(["close", "update:visible"]);
  * @return {}
  */
 const handleClose = () => {
-  $emits("update:visible", false);
+  emits("update:visible", false);
 };
 </script>
 
