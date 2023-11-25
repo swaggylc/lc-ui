@@ -1,5 +1,5 @@
 <template>
-  <label class="lc-radio" :class="{ 'is-checked': label == modelValue }">
+  <label class="lc-radio" :class="{ 'is-checked': label == model }">
     <span class="lc-radio_input">
       <span class="lc-radio_inner"></span>
       <input
@@ -20,17 +20,32 @@
 </template>
 
 <script setup>
-import { ref, defineProps, computed, defineEmits } from "vue";
+import { ref, defineProps, computed, defineEmits, inject } from "vue";
 
+// 在这里初始化 radioGroup,获取组件实例
+const radioGroup = inject("radioGroup");
+// 当radio被radio-group包裹时，我们获取的值就应该是radio-group中传进来的值
+// 提供一个计算属性，判断是否被包裹
+let isGroup = computed(() => {
+  return radioGroup !== undefined;
+});
 // 提供一个计算属性以绑定input，同时能够更改父组件中传进来的值
 let model = computed({
   // 获取值时，直接从传进来的modelValue拿
   get: () => {
-    return props.modelValue;
+    // 如果是被包裹，那么就从radio-group中获取值
+    return isGroup.value ? radioGroup.ctx.modelValue : props.modelValue;
   },
   // 改变值时，需要改变父组件中的值
   set: (value) => {
-    emits("update:modelValue", value);
+    // 如果是被包裹，那么就改变radio-group中传进来的值
+    // 应该触发radio-group组件的update:modelValue事件
+    if (isGroup.value) {
+      // 触发父组件的自定义事件
+      radioGroup.emit("update:modelValue", value);
+    } else {
+      emits("update:modelValue", value);
+    }
   },
 });
 

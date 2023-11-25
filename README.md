@@ -968,3 +968,44 @@ const props = defineProps({
       </lc-radio-group>
 ```
 
+由于是在radio-group中获取的外部组件v-model传进来的值，而radio获取不到，所以我们应该将radio-group中获取到的modelValue传递给radio，应该用provide和inject，因为不能保证radio-group组件和radio组件是父子关系，有可能是祖孙关系，所以不直接使用props；并且应该传递整个组件（只传递emit方法和值不知能否可行）因为要使用到emit方法和要传递的modelValue值；传递后那么radio中计算属性model的的get和set就要发生相对的变化：
+
+```js
+// 提供一个计算属性以绑定input，同时能够更改父组件中传进来的值
+let model = computed({
+  // 获取值时，直接从传进来的modelValue拿
+  get: () => {
+    // 如果是被包裹，那么就从radio-group中获取值
+    return isGroup.value ? radioGroup.ctx.modelValue : props.modelValue;
+  },
+  // 改变值时，需要改变父组件中的值
+  set: (value) => {
+    // 如果是被包裹，那么就改变radio-group中传进来的值
+    // 应该触发radio-group组件的update:modelValue事件
+    if (isGroup.value) {
+      // 触发父组件的自定义事件
+      radioGroup.emit("update:modelValue", value);
+    } else {
+      emits("update:modelValue", value);
+    }
+  },
+});
+
+
+// 当radio被radio-group包裹时，我们获取的值就应该是radio-group中传进来的值
+// 提供一个计算属性，判断是否被包裹
+let isGroup = computed(() => {
+  return radioGroup !== undefined;
+});
+```
+
+并且提供一个新的计算属性以判断radio是否被radio-group包裹。
+
+不论是读取值（get）还是更改值时（set）应该判断是否被包裹，被包裹则从inject拿值，不被包裹则直接从父组件拿值，这样我们的radio-group组件就算封装完毕。
+
+**ps**：不要忘记修改radio组件中选中样式的判断情况，当被radio-group包裹时，radio中的modelValue是没有值的，所以样式的判断情况应该修改为：
+
+```html
+  <label class="lc-radio" :class="{ 'is-checked': label == model }">
+```
+
