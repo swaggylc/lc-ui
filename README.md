@@ -886,3 +886,58 @@ new Vue({
 | v-model  | 双向绑定        | Boolean                 | false  |
 | label    | 单选框和value值 | String，Number，Boolean | ' '    |
 | name     | name            | String                  | ' '    |
+
+#### 基本样式
+
+```html
+      <lc-radio label="1" v-model="gender">男</lc-radio>
+      <lc-radio label="0" v-model="gender">女</lc-radio>
+```
+
+子组件中：
+
+```html
+<template>
+  <label class="lc-radio" :class="{ 'is-checked': label == modelValue }">
+    <span class="lc-radio_input">
+      <span class="lc-radio_inner"></span>
+      <input
+        :value="label"
+        :name="name"
+        type="radio"
+        class="lc-radio_original"
+        v-model="model"
+      />
+    </span>
+    <span class="lc-radio_label">
+      <slot></slot>
+      <template v-if="!$slots.default">
+        {{ label }}
+      </template>
+    </span>
+  </label>
+</template>
+```
+
+我们发现，可以通过props获取到父组件中传进来的值，并将其通过:value赋给input框，这是没问题的；但如何改变父组件中传进来的值呢？通过在input中直接v-model绑定父组件传进来的modelValue吗？显然是不行的，这样会导致在子组件中直接修改父组件传进来的值；那么我们可以使用一个计算属性，get时直接获取传进来的值，而set时通过v-model的update：modelValue的自定义事件（固定写法）去改变父组件中传进来的值。
+
+```js
+// 提供一个计算属性以绑定input，同时能够更改父组件中传进来的值
+let model = computed({
+  // 获取值时，直接从传进来的modelValue拿
+  get: () => {
+    return props.modelValue;
+  },
+  // 改变值时，需要改变父组件中的值
+  set: (value) => {
+    emits("update:modelValue", value);
+  },
+});
+```
+
+并且动态的控制是否选中的样式：如果传进来的值和radio中label值相等，则代表选中
+
+```js
+  <label class="lc-radio" :class="{ 'is-checked': label == modelValue }">
+```
+

@@ -1,8 +1,14 @@
 <template>
-  <label class="lc-radio">
+  <label class="lc-radio" :class="{ 'is-checked': label == modelValue }">
     <span class="lc-radio_input">
       <span class="lc-radio_inner"></span>
-      <input type="radio" class="lc-radio_original" />
+      <input
+        :value="label"
+        :name="name"
+        type="radio"
+        class="lc-radio_original"
+        v-model="model"
+      />
     </span>
     <span class="lc-radio_label">
       <slot></slot>
@@ -15,9 +21,21 @@
 
 <script setup>
 name: "LcRadio";
-import { ref, defineProps } from "vue";
+import { ref, defineProps, computed, defineEmits } from "vue";
 
-const $emits = defineProps({
+// 提供一个计算属性以绑定input，同时能够更改父组件中传进来的值
+let model = computed({
+  // 获取值时，直接从传进来的modelValue拿
+  get: () => {
+    return props.modelValue;
+  },
+  // 改变值时，需要改变父组件中的值
+  set: (value) => {
+    emits("update:modelValue", value);
+  },
+});
+
+const props = defineProps({
   label: {
     type: [String, Number, Boolean],
     default: "我是label",
@@ -29,6 +47,7 @@ const $emits = defineProps({
     default: "",
   },
 });
+const emits = defineEmits(["update:modelValue"]);
 </script>
 
 <style lang="scss" scoped>

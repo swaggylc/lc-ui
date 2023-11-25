@@ -115,8 +115,8 @@
   </div>
   <div class="row">
     <div class="col">
-      <lc-radio>男</lc-radio>
-      <lc-radio>女</lc-radio>
+      <lc-radio label="1" v-model="gender">男</lc-radio>
+      <lc-radio label="0" v-model="gender">女</lc-radio>
       <lc-radio></lc-radio>
 
     </div>
@@ -137,6 +137,7 @@ let passWord = ref("");
 let switchName = ref("swaggy");
 let switchActive1 = ref(false);
 let switchActive2 = ref(false);
+let gender=ref("1")
 const fn = () => {
   console.log("123");
 };
