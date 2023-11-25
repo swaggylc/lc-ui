@@ -20,7 +20,6 @@
 </template>
 
 <script setup>
-name: "LcRadio";
 import { ref, defineProps, computed, defineEmits } from "vue";
 
 // 提供一个计算属性以绑定input，同时能够更改父组件中传进来的值

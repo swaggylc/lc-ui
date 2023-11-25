@@ -26,7 +26,6 @@
 </template>
 
 <script setup>
-name: "LcDialog";
 import LcButton from "../button/LcButton.vue";
 import { defineProps } from "vue";
 const props = defineProps({

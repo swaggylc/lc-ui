@@ -16,7 +16,6 @@
 </template>
 
 <script setup>
-name: "Lc-Button";
 import { defineProps, useSlots, defineEmits } from "vue";
 
 // 封装通用的组件，通常需要对props进行约束

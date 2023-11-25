@@ -28,7 +28,6 @@
 </template>
 
 <script setup>
-name: "LcInput";
 import { ref, defineProps, defineEmits, computed } from "vue";
 const props = defineProps({
   type: {

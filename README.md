@@ -941,3 +941,30 @@ let model = computed({
   <label class="lc-radio" :class="{ 'is-checked': label == modelValue }">
 ```
 
+## RadioRroup组件
+
+#### 基本结构
+
+```vue
+<template>
+  <div class="one-radio-group">
+    <slot></slot>
+  </div>
+</template>
+<script setup>
+import { ref, defineProps } from "vue";
+const props = defineProps({
+  modelValue: null,
+});
+</script>
+```
+
+父组件中：
+
+```html
+      <lc-radio-group v-model="gender">
+        <lc-radio label="1" >男</lc-radio>
+        <lc-radio label="0" >女</lc-radio>
+      </lc-radio-group>
+```
+

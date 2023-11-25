@@ -11,7 +11,6 @@
 </template>
 
 <script setup>
-name: "LcSwitch";
 import {
   ref,
   defineProps,

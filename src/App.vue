@@ -118,7 +118,14 @@
       <lc-radio label="1" v-model="gender">男</lc-radio>
       <lc-radio label="0" v-model="gender">女</lc-radio>
       <lc-radio></lc-radio>
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <lc-radio-group v-model="gender">
+        <lc-radio label="1" >男</lc-radio>
+        <lc-radio label="0" >女</lc-radio>
+      </lc-radio-group>
     </div>
   </div>
 </template>
@@ -129,6 +136,7 @@ import LcDialog from "./components/dialog/LcDialog.vue";
 import LcInput from "./components/input/LcInput.vue";
 import LcSwitch from "./components/switch/LcSwitch.vue";
 import LcRadio from "./components/radio/LcRadio.vue";
+import LcRadioGroup from "./components/radio-group/LcRadioGroup.vue";
 import { ref } from "vue";
 
 let visible = ref(false);
@@ -137,7 +145,7 @@ let passWord = ref("");
 let switchName = ref("swaggy");
 let switchActive1 = ref(false);
 let switchActive2 = ref(false);
-let gender=ref("1")
+let gender = ref("1");
 const fn = () => {
   console.log("123");
 };

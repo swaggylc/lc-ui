@@ -6,15 +6,17 @@ import LcDialog from "./components/dialog/LcDialog.vue"
 import LcInput from "./components/input/LcInput.vue"
 import LcSwitch from './components/switch/LcSwitch.vue'
 import LcRadio from './components/radio/LcRadio.vue'
+import LcRadioGroup from './components/radio-group/LcRadioGroup.vue'
 // 全局引入图标文件
 import './assets/font/font.css'
 const app = createApp(App)
 
-app.component(LcButton.name, LcButton)
-app.component(LcDialog.name, LcDialog)
-app.component(LcInput.name, LcInput)
-app.component(LcSwitch.name, LcSwitch)
-app.component(LcRadio.name, LcRadio)
+app.component(LcButton, LcButton)
+app.component(LcDialog, LcDialog)
+app.component(LcInput, LcInput)
+app.component(LcSwitch, LcSwitch)
+app.component(LcRadio, LcRadio)
+app.component(LcRadioGroup, LcRadioGroup)
 
 
 
